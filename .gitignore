@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 # django ignoration
 */migrations/
+# idea dir
+.idea/
