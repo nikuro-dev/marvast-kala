@@ -23,14 +23,16 @@ class ProductCategory(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=200, verbose_name="نام محصول")
     slug = models.SlugField(max_length=400, null=False, db_index=True, unique=True, allow_unicode=True, verbose_name="نام در url (با حروف لاتین و با خط فاصله نوشته شود)")
+    image = models.ImageField(upload_to='images/products', blank=True, null= True, verbose_name="تصویر محصول")
     price = models.IntegerField(verbose_name="قیمت به ریال")
-    quntity = models.IntegerField(verbose_name="تعداد در انبار")
+    quantity = models.FloatField(verbose_name="تعداد در انبار")
     short_description = models.CharField(verbose_name="توضیحات کوتاه", max_length=400)
     description = models.TextField(verbose_name="توضیحات اصلی")
     product_barcode = models.IntegerField(verbose_name="بارکد کالا")
     is_active = models.BooleanField(default=True, verbose_name="فعال /غیرفعال")
     is_delete = models.BooleanField(default=False, verbose_name="حذف شده / نشده")
-
+    is_paid = models.IntegerField(verbose_name="تعداد فروش رفته")
+    created_date = models.DateTimeField(auto_now=True, verbose_name="تاریخ اضافه شدن محصول")
     def get_absolute_url(self):
         return reverse('product_detail', args=[self.slug])
 
