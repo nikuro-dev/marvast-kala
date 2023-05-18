@@ -41,9 +41,10 @@ INSTALLED_APPS = [
     "product_module",
     "home_module",
     "site_setting",
+    "import_export_module",
     #external apps
-    "import_export",
     "django_render_partial",
+    "import_export",
     "jalali_date",
 ]
 
