@@ -57,3 +57,15 @@ class Slider(models.Model):
         verbose_name = "اسلایدر"
         verbose_name_plural = "تمامی اسلایدر ها"
 
+class Banner(models.Model):
+    class BannerPositions(models.TextChoices):
+        product_list = 'product_list', 'صفحه لیس محصولات'
+        product_detail = 'product_detail', 'صفحه جزییات محصولات'
+        about_us = 'about_us', 'صفحه درباره ما'
+        contact_us = 'contact_us', 'صفحه تماس با ما'
+
+
+    title = models.CharField(max_length=200, verbose_name="عنوان بنر")
+    url = models.URLField(max_length=400, verbose_name="ادرس بنر")
+    image = models.ImageField(upload_to="images/banners", verbose_name="تصویر بنر")
+    position = models.CharField(verbose_name="محل قرار گیری بنر", choices=BannerPositions.choices, max_length=200)
