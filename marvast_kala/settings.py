@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "home_module",
     "site_setting",
     "import_export_module",
+    "order_module",
     #external apps
     "django_render_partial",
     "import_export",
