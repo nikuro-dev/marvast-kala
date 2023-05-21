@@ -5,7 +5,7 @@ from django.urls import reverse
 # Create your models here.
 
 class ProductCategory(models.Model):
-    parent = models.ForeignKey('ProductCategory', null= True, blank= True, on_delete= models.CASCADE)
+    parent = models.ForeignKey('self', null= True, blank= True, on_delete= models.CASCADE)
     title = models.CharField(max_length=200, verbose_name= "عنوان")
     url_title = models.CharField(max_length=300, verbose_name= "عنوان در url")
     is_active = models.BooleanField(default=True, verbose_name= "فعال/ غیر فعال")
@@ -25,13 +25,14 @@ class Product(models.Model):
     slug = models.SlugField(max_length=400, null=False, db_index=True, unique=True, allow_unicode=True, verbose_name="نام در url (با حروف لاتین و با خط فاصله نوشته شود)")
     image = models.ImageField(upload_to='images/products', blank=True, null= True, verbose_name="تصویر محصول")
     price = models.IntegerField(verbose_name="قیمت به ریال")
-    quantity = models.FloatField(verbose_name="تعداد در انبار")
+    quantity = models.FloatField(default=0, verbose_name="تعداد در انبار")
+    category = models.ForeignKey(ProductCategory, blank=True, null=True, on_delete=models.CASCADE)
     short_description = models.CharField(verbose_name="توضیحات کوتاه", max_length=400)
-    description = models.TextField(verbose_name="توضیحات اصلی")
+    description = models.TextField(blank=True, null=True, verbose_name="توضیحات اصلی")
     product_barcode = models.IntegerField(verbose_name="بارکد کالا")
     is_active = models.BooleanField(default=True, verbose_name="فعال /غیرفعال")
     is_delete = models.BooleanField(default=False, verbose_name="حذف شده / نشده")
-    is_paid = models.IntegerField(verbose_name="تعداد فروش رفته")
+    is_paid = models.IntegerField(default=0, null= False, verbose_name="تعداد فروش رفته")
     created_date = models.DateTimeField(auto_now=True, verbose_name="تاریخ اضافه شدن محصول")
     def get_absolute_url(self):
         return reverse('product_detail', args=[self.slug])
