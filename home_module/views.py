@@ -5,11 +5,12 @@ from site_setting.models import SiteSetting, FooterLinkBox, Slider
 
 class HomeView(TemplateView):
     template_name = "home_module/index.html"
-    #def get_context_data(self, kwargs):
-        #context = super().get_context_data(**kwargs)
-        #sliders = Slider.objects.filter()
-        
-        #return context
+    model = SiteSetting
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        sliders = Slider.objects.filter()
+
+        return context
 
 class AboutusView(TemplateView):
     template_name = "home_module/about_us.html"
